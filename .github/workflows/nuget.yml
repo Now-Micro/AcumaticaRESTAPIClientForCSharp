@@ -21,11 +21,11 @@ jobs:
     - name: Set VERSION variable from tag
       run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
     - name: Build
-      run: dotnet build --configuration Release /p:Version=${VERSION}
+      run: dotnet build "Acumatica REST API Client.sln" --configuration Release /p:Version=${VERSION}
     - name: Test
-      run: dotnet test --configuration Release /p:Version=${VERSION} --no-build
+      run: dotnet test "Acumatica REST API Client.sln" --configuration Release /p:Version=${VERSION} --no-build
     - name: Pack
-      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
+      run: dotnet pack "Acumatica REST API Client.sln" --configuration Release /p:Version=${VERSION} --no-build --output .
     - name: Push
       run: dotnet nuget push NuGet.Workflow.${VERSION}.nupkg --source https://nuget.pkg.github.com/now-micro/index.json --api-key ${GITHUB_TOKEN}
       env:
